@@ -69,34 +69,35 @@ def scientific_delta(pop: pd.DataFrame) -> float:
 
 #load data from the csv
 data = pd.read_csv("data.csv",index_col=0)
-
+show = True
 #print Our personal data for the FIXED_COUNTRIES (Q1.a)
 
-def Q1 (data):
+def Q1 (data,show):
     #Q1.a
-    pop = population(data, [20191230, 20190931])
-    print(pop[146:][:])
-    print("")
-    
-    #Q1.b
-    mean = np.mean(data, axis = 0)
-    print("Moyenne : ")
-    print(mean)
-    print("")
+    if (show):
+        pop = population(data, [20191230, 20190931])
+        print(pop[146:][:])
+        print("")
+        
+        #Q1.b
+        mean = np.mean(data, axis = 0)
+        print("Moyenne : ")
+        print(mean)
+        print("")
 
-    print("Standard deviation : ")
-    std = np.std(data, axis = 0)
-    print(std)
-    print("")
+        print("Standard deviation : ")
+        std = np.std(data, axis = 0)
+        print(std)
+        print("")
 
-    median = np.median(data, axis=0)
-    print("Median :", median)
-    print("")
+        median = np.median(data, axis=0)
+        print("Median :", median)
+        print("")
 
-    quantile1 = np.quantile(data, 1/4, axis=0)
-    print("Q1: ",quantile1)
-    quantile2 = np.quantile(data, 3/4, axis=0)
-    print("Q2 :", quantile2)
+        quantile1 = np.quantile(data, 1/4, axis=0)
+        print("Q1: ",quantile1)
+        quantile2 = np.quantile(data, 3/4, axis=0)
+        print("Q2 :", quantile2)
 
     ay1 = plt.subplot(131)
     ay1.axes.get_xaxis().set_visible(False)
@@ -113,7 +114,8 @@ def Q1 (data):
     plt.boxplot(data.iloc[:, 2])
     plt.title("PIB / Habitan")
     plt.tick_params('y',labelleft = False, labelright = True, right = True, left = False, bottom = False)
-    plt.show()
+    if (show):
+        plt.show()
 
 
 
