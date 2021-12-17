@@ -1,4 +1,5 @@
 from typing import List
+from statsmodels.distributions.empirical_distribution import ECDF
 import seaborn as sns
 
 import matplotlib.pyplot as plt
@@ -99,9 +100,9 @@ def Q1 (data,show,save):
         print("")
 
         quantile1 = np.quantile(data, 1/4, axis=0)
-        print("Q1: ",quantile1)
+        print("Quart1: ",quantile1)
         quantile2 = np.quantile(data, 3/4, axis=0)
-        print("Q2 :", quantile2)
+        print("Quart2 :", quantile2)
 
     ay1 = plt.subplot(131)
     ay1.axes.get_xaxis().set_visible(False)
@@ -125,9 +126,10 @@ def Q1 (data,show,save):
 
     plt.figure()
     plt.hist(data.iloc[:, 0])
-    plt.figure()
-    plt.hist(data.iloc[:, 0], density=True, histtype='step',
-             cumulative=True, label='Empirical')
+    plt.title("Histogram of 10% richest PIB proportion")
+    plt.ylabel("# of state")
+    plt.xlabel("percent held")
+    
 
     if (show):
         plt.show()
