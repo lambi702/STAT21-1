@@ -65,3 +65,10 @@ def scientific_delta(pop: pd.DataFrame) -> float:
     pop["Rich"] = pop.apply(lambda x: x["PIB_habitant"] >= median_gdp, axis=1)
     means = pop.groupby("Rich")['CO2_habitant'].mean()
     return means[True] - means[False]
+
+#load data from the csv
+data = pd.read_csv("data.csv",index_col=0)
+pop = population(data,[20191230,20190931])
+
+#print Our personal data for the FIXED_COUNTRIES (Q1.a)
+print(pop[146:][:])
