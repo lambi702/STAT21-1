@@ -1,5 +1,6 @@
 from typing import List
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import scipy.special as sc
@@ -68,7 +69,53 @@ def scientific_delta(pop: pd.DataFrame) -> float:
 
 #load data from the csv
 data = pd.read_csv("data.csv",index_col=0)
-pop = population(data,[20191230,20190931])
 
 #print Our personal data for the FIXED_COUNTRIES (Q1.a)
-print(pop[146:][:])
+
+def Q1 (data):
+    #Q1.a
+    pop = population(data, [20191230, 20190931])
+    print(pop[146:][:])
+    print("")
+    
+    #Q1.b
+    mean = np.mean(data, axis = 0)
+    print("Moyenne : ")
+    print(mean)
+    print("")
+
+    print("Standard deviation : ")
+    std = np.std(data, axis = 0)
+    print(std)
+    print("")
+
+    median = np.median(data, axis=0)
+    print("Median :", median)
+    print("")
+
+    quantile1 = np.quantile(data, 1/4, axis=0)
+    print("Q1: ",quantile1)
+    quantile2 = np.quantile(data, 3/4, axis=0)
+    print("Q2 :", quantile2)
+
+    ay1 = plt.subplot(131)
+    ay1.axes.get_xaxis().set_visible(False)
+    plt.boxplot(data.iloc[:,0])
+    plt.title("TOP 10 % richer")
+
+    ay2 = plt.subplot(132)
+    ay2.axes.get_xaxis().set_visible(False)
+    plt.boxplot(data.iloc[:, 1])
+    plt.title("CO2 / Habitant (in T)")
+
+    ay3 = plt.subplot(133)
+    ay3.axes.get_xaxis().set_visible(False)
+    plt.boxplot(data.iloc[:, 2])
+    plt.title("PIB / Habitan")
+    plt.tick_params('y',labelleft = False, labelright = True, right = True, left = False, bottom = False)
+    plt.show()
+
+
+
+
+Q1(data)
