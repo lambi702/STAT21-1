@@ -129,9 +129,50 @@ def Q1 (data,show,save):
     plt.title("Histogram of 10% richest PIB proportion")
     plt.ylabel("# of state")
     plt.xlabel("percent held")
+    if (save):
+        plt.savefig("Hist_TOP10.svg")
+    
+    plt.figure()
+    plt.hist(data.iloc[:, 1])
+    plt.title("Histogram of CO2/Habitant")
+    plt.ylabel("# of state")
+    plt.xlabel("percent held")
+    if (save):
+        plt.savefig("Hist_CO2.svg")
+    
+
+    plt.figure()
+    plt.hist(data.iloc[:, 2])
+    plt.title("Histogram of PIB/Habitant")
+    plt.ylabel("# of state")
+    plt.xlabel("percent held")
+    if (save):
+        plt.savefig("Hist_PIB.svg")
+
+
+    plt.figure()
+    plt.plot(np.sort(data.iloc[:, 0]), np.linspace(
+        0, 1, len(data.iloc[:, 0]), endpoint=False))
+    plt.title("ECDF 10% richest PIB proportion")
+    if (save):
+        plt.savefig("ECDF_TOP10.svg")
+
+    plt.figure()
+    plt.plot(np.sort(data.iloc[:, 1]), np.linspace(
+        0, 1, len(data.iloc[:, 1]), endpoint=False))
+    plt.title("ECDF of CO2/Habtiant")
+    if (save):
+        plt.savefig("ECDF_CO2.svg")
+
+    plt.figure()
+    plt.plot(np.sort(data.iloc[:, 2]), np.linspace(
+        0, 1, len(data.iloc[:, 2]), endpoint=False))
+    plt.title("ECDF of PIB/Habitant")
+    if (save):
+        plt.savefig("ECDF_PIB.svg")
     
 
     if (show):
         plt.show()
 
-Q1(data,True,False)
+Q1(data,False,True)
