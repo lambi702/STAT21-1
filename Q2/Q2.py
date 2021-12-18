@@ -1,9 +1,11 @@
 from typing import List
+from scipy.stats import beta
 
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import scipy.special as sc
+import scipy.optimize as sco
 
 FIXED_COUNTRIES = ["USA", "Belgium", "China", "Togo"]
 
@@ -79,4 +81,14 @@ def Q2 ():
     print("alpha MOM:", aMom)
     print("beta MOM:", bMom)
 
+    x = sco.minimize(beta_log_likelihood,np.array([1,1]),pop)
+    aMle = x.x[0]
+    bMle = x.x[1]
+    print("alpha MLE:", aMle)
+    print("beta MLE: ", bMle)
+
+    plt.figure()
+    plt.hist(pop)
+    plt.plot(beta(aMle,bMle))
+    plt.show()
 Q2()
