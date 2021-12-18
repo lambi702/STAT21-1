@@ -70,7 +70,7 @@ def scientific_delta(pop: pd.DataFrame) -> float:
     return means[True] - means[False]
 
 
-data = pd.read_csv("data.csv", index_col=0)
+data = population(pd.read_csv("data.csv", index_col=0),[20191230,20190931])
 
 def Q2 ():
     pop = np.random.choice(data.iloc[:,0],50)
