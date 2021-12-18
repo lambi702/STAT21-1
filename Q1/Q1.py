@@ -104,6 +104,21 @@ def Q1(data, show, save):
         quantile2 = np.quantile(data, 3/4, axis=0)
         print("Quart2 :", quantile2)
 
+        bminTOP10 = quantile1[0] - (1.5*(quantile2[0] - quantile1[0]))
+        bmaxTOP10 = quantile2[0] + (1.5*(quantile2[0] - quantile1[0]))
+        print("min TOP10 : ", bminTOP10)
+        print("max TOP10 : ", bmaxTOP10)
+
+        bminCO2 = quantile1[1] - (1.5*(quantile2[1] - quantile1[1]))
+        bmaxCO2 = quantile2[1] + (1.5*(quantile2[1] - quantile1[1]))
+        print("min CO2 : ", bminCO2)
+        print("max CO2 : ", bmaxCO2)
+
+        bminPIB = quantile1[2] - (1.5*(quantile2[2] - quantile1[2]))
+        bmaxPIB = quantile2[2] + (1.5*(quantile2[2] - quantile1[2]))
+        print("min PIB : ", bminPIB)
+        print("max PIB : ", bmaxPIB)
+
     ay1 = plt.subplot(131)
     ay1.axes.get_xaxis().set_visible(False)
     plt.boxplot(data.iloc[:, 0])
@@ -190,4 +205,4 @@ def Q1(data, show, save):
         plt.show()
 
 
-Q1(data, True, False)
+Q1(data, True, True)
