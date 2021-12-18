@@ -117,7 +117,7 @@ def Q1(data, show, save):
     ay3 = plt.subplot(133)
     ay3.axes.get_xaxis().set_visible(False)
     plt.boxplot(data.iloc[:, 2])
-    plt.title("PIB / Habitan")
+    plt.title("PIB / Habitant")
     plt.tick_params('y', labelleft=False, labelright=True,
                     right=True, left=False, bottom=False)
     if (save):
