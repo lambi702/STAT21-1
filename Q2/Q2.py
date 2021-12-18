@@ -81,14 +81,54 @@ def Q2 ():
     print("alpha MOM:", aMom)
     print("beta MOM:", bMom)
 
-    x = sco.minimize(beta_log_likelihood,np.array([1,1]),pop)
-    aMle = x.x[0]
-    bMle = x.x[1]
+    (aMle, bMle) = Mle(pop)
     print("alpha MLE:", aMle)
     print("beta MLE: ", bMle)
 
     plt.figure()
-    plt.hist(pop)
-    plt.plot(beta(aMle,bMle))
+
+    plt.hist(pop,density=True)
+    x = np.arange(0.01, 1, 0.01)
+    y = (beta.pdf(x, aMle, bMle))
+    plt.plot(x, y,label = 'MLE')
+    y = beta.pdf(x, aMom, bMom)
+    plt.plot(x,y, label = 'MOM')
+    plt.title("Real data compared to Beta distribution \nwith estimated parameters")
+    plt.legend()
+
+    test = [20,40, 60, 80,100]
+    for j in test:
+        echantillon1 = np.zeros((500,2))
+        echantillon2 = np.zeros((500,2))
+        for i in range(500):
+            pop = np.random.choice(data.iloc[:, 0], j)
+            echantillon1[i] = Mom(pop)
+            echantillon2[i] = Mle(pop)
+
+        print(j ,": Varience Mom: ", np.var(echantillon1[:, 0]))
+        print(j , ": Quad Error Mom: ", np.square(
+            np.subtract(echantillon1[:, 0], 13.35)).mean())
+        print(j , ": Varience Mle: ", np.var(echantillon2[:, 0]))
+        print(j , ": Quad Error Mle: ", np.square(
+            np.subtract(echantillon2[:, 0], 13.35)).mean())
+        
     plt.show()
+
+
+
+def Mle(pop):
+    x = sco.minimize(beta_log_likelihood, np.array([1, 1]), pop)
+    aMle = x.x[0]
+    bMle = x.x[1]
+    return (aMle,bMle)
+
+def Mom(pop):
+    var = np.var(pop)
+    mean = np.mean(pop)
+    aMom = mean*((((1-mean)*mean)/var)-1)
+    bMom = ((((1-mean)*mean)/(var))-1)*(1-mean)
+    return (aMom,bMom)
+
+
+
 Q2()
