@@ -71,27 +71,27 @@ def scientific_delta(pop: pd.DataFrame) -> float:
     return means[True] - means[False]
 
 
-#load data from the csv
-data = pd.read_csv("data.csv",index_col=0)
-#print Our personal data for the FIXED_COUNTRIES (Q1.a)
+# load data from the csv
+data = pd.read_csv("data.csv", index_col=0)
+# print Our personal data for the FIXED_COUNTRIES (Q1.a)
 
-def Q1 (data,show,save):
-    #Q1.a
 
+def Q1(data, show, save):
+    # Q1.a
 
     if (show):
         pop = population(data, [20191230, 20190931])
         print(pop[146:][:])
         print("")
-        
-        #Q1.b
-        mean = np.mean(data, axis = 0)
+
+        # Q1.b
+        mean = np.mean(data, axis=0)
         print("Moyenne : ")
         print(mean)
         print("")
 
         print("Standard deviation : ")
-        std = np.std(data, axis = 0)
+        std = np.std(data, axis=0)
         print(std)
         print("")
 
@@ -100,13 +100,13 @@ def Q1 (data,show,save):
         print("")
 
         quantile1 = np.quantile(data, 1/4, axis=0)
-        print("Quart1: ",quantile1)
+        print("Quart1: ", quantile1)
         quantile2 = np.quantile(data, 3/4, axis=0)
         print("Quart2 :", quantile2)
 
     ay1 = plt.subplot(131)
     ay1.axes.get_xaxis().set_visible(False)
-    plt.boxplot(data.iloc[:,0])
+    plt.boxplot(data.iloc[:, 0])
     plt.title("10% richest \nPIB proportion")
 
     ay2 = plt.subplot(132)
@@ -118,11 +118,10 @@ def Q1 (data,show,save):
     ay3.axes.get_xaxis().set_visible(False)
     plt.boxplot(data.iloc[:, 2])
     plt.title("PIB / Habitan")
-    plt.tick_params('y',labelleft = False, labelright = True, right = True, left = False, bottom = False)
+    plt.tick_params('y', labelleft=False, labelright=True,
+                    right=True, left=False, bottom=False)
     if (save):
         plt.savefig("boiteAMoustache.svg")
-
-
 
     plt.figure()
     plt.hist(data.iloc[:, 0])
@@ -131,7 +130,7 @@ def Q1 (data,show,save):
     plt.xlabel("percent held")
     if (save):
         plt.savefig("Hist_TOP10.svg")
-    
+
     plt.figure()
     plt.hist(data.iloc[:, 1])
     plt.title("Histogram of CO2/Habitant")
@@ -139,7 +138,6 @@ def Q1 (data,show,save):
     plt.xlabel("percent held")
     if (save):
         plt.savefig("Hist_CO2.svg")
-    
 
     plt.figure()
     plt.hist(data.iloc[:, 2])
@@ -148,7 +146,6 @@ def Q1 (data,show,save):
     plt.xlabel("percent held")
     if (save):
         plt.savefig("Hist_PIB.svg")
-
 
     plt.figure()
     plt.plot(np.sort(data.iloc[:, 0]), np.linspace(
@@ -170,9 +167,27 @@ def Q1 (data,show,save):
     plt.title("ECDF of PIB/Habitant")
     if (save):
         plt.savefig("ECDF_PIB.svg")
-    
+
+
+    plt.subplot(231)
+    plt.scatter(data.iloc[:, 0], data.iloc[:, 1], s=1)
+    plt.title("TOP 10")
+    plt.subplot(232)
+    plt.text(0.45,0.45,s="CO2",fontsize="x-large")
+    plt.axis("off")
+    plt.subplot(234)
+    plt.scatter(data.iloc[:, 0], data.iloc[:, 2], s=1)
+    plt.subplot(235)
+    plt.scatter(data.iloc[:, 1], data.iloc[:, 2], s=1)
+    plt.tick_params('y', labelleft=False)
+    plt.subplot(236)
+    plt.text(0, 0.45, s="PIB", fontsize="x-large")
+    plt.axis("off")
+    plt.suptitle("Matrix plot                              ")
+    plt.savefig("matrix_plot.svg")
 
     if (show):
         plt.show()
 
-Q1(data,False,True)
+
+Q1(data, True, False)
